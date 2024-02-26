@@ -11,7 +11,12 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-
+import csv
+datos = []
+with open("data.csv", "r") as archivo_datos:
+    lector = csv.reader(archivo_datos, delimiter="\t")
+    for fila in lector:
+        datos.append(fila)
 
 def pregunta_01():
     """
@@ -21,7 +26,11 @@ def pregunta_01():
     214
 
     """
-    return
+    R1 = 0
+    for i in range(len(datos)):
+        R1 += int(datos[i][1])
+
+    return R1
 
 
 def pregunta_02():
@@ -39,7 +48,11 @@ def pregunta_02():
     ]
 
     """
-    return
+    dic2 = {}
+    for i in range(len(datos)):
+        dic2[datos[i][0]] = dic2.get(datos[i][0], 0) + 1
+ 
+    return list(sorted(dic2.items()))
 
 
 def pregunta_03():
@@ -57,7 +70,11 @@ def pregunta_03():
     ]
 
     """
-    return
+    dic3 = {}
+    for i in range(len(datos)):
+        dic3[datos[i][0]] = dic3.get(datos[i][0], 0) + int(datos[i][1])
+ 
+    return list(sorted(dic3.items()))
 
 
 def pregunta_04():
@@ -82,7 +99,12 @@ def pregunta_04():
     ]
 
     """
-    return
+    fecha = [z[2].split("-") for z in datos]
+    dic4 = {}
+    for i in range(len(fecha)):
+        dic4[fecha[i][1]] = dic4.get(fecha[i][1], 0) + 1
+ 
+    return list(sorted(dic4.items()))
 
 
 def pregunta_05():
@@ -100,8 +122,19 @@ def pregunta_05():
     ]
 
     """
-    return
+    dic5 = {}
+    for i in range(len(datos)):
+        if not (datos[i][0] in dic5):
+            dic5[datos[i][0]] = [datos[i][0], int(datos[i][1]), int(datos[i][1])]
+        else:
+            if dic5[datos[i][0]][1] < int(datos[i][1]):
+                dic5[datos[i][0]][1] = int(datos[i][1])
+            elif dic5[datos[i][0]][2] > int(datos[i][1]):
+                dic5[datos[i][0]][2] = int(datos[i][1])
+    salida = sorted(dic5.values())
+    lista_de_tuplas = [tuple(sublista) for sublista in salida]
 
+    return lista_de_tuplas
 
 def pregunta_06():
     """
@@ -125,8 +158,22 @@ def pregunta_06():
     ]
 
     """
-    return
-
+    dic_datos1 = [z[4].split(",") for z in datos]
+    dd2 = {}
+    for elm in dic_datos1:
+        for i in range(len(elm)):
+            clave, valor = elm[i].split(":")
+            if clave not in dd2:
+                dd2[clave] = [clave, valor, valor]
+            else:
+                if dd2[clave][1] > valor:
+                    dd2[clave][1] = valor
+                elif dd2[clave][2] < valor:
+                    dd2[clave][2] = valor
+    salida1 = sorted(dd2.values())
+    lista_de_tuplas1 = [tuple(sublista) for sublista in salida1]
+    #revisar donde esta el error 
+    return lista_de_tuplas1
 
 def pregunta_07():
     """
@@ -149,8 +196,14 @@ def pregunta_07():
     ]
 
     """
-    return
-
+    dic7 = {}
+    for i in range(len(datos)):
+        if int(datos[i][1]) not in dic7:
+            dic7[int(datos[i][1])] = [datos[i][0]]
+        else:
+            dic7[int(datos[i][1])] = dic7[int(datos[i][1])]+[datos[i][0]]
+ 
+    return list(sorted(dic7.items()))
 
 def pregunta_08():
     """
@@ -174,7 +227,18 @@ def pregunta_08():
     ]
 
     """
-    return
+    dic7 = {}
+    for i in range(len(datos)):
+        if int(datos[i][1]) not in dic7:
+            dic7[int(datos[i][1])] = [datos[i][0]]
+        else:
+            if datos[i][0] in dic7[int(datos[i][1])]:
+                continue
+            else:
+                dic7[int(datos[i][1])] = sorted(dic7[int(datos[i][1])]+[datos[i][0]])
+ 
+    return list(sorted(dic7.items()))
+print(pregunta_08())
 
 
 def pregunta_09():
@@ -258,3 +322,4 @@ def pregunta_12():
 
     """
     return
+
