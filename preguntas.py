@@ -238,8 +238,6 @@ def pregunta_08():
                 dic7[int(datos[i][1])] = sorted(dic7[int(datos[i][1])]+[datos[i][0]])
  
     return list(sorted(dic7.items()))
-print(pregunta_08())
-
 
 def pregunta_09():
     """
@@ -261,8 +259,16 @@ def pregunta_09():
     }
 
     """
-    return
+    dic_datos9 = [z[4].split(",") for z in datos]
+    dicc9 = {}
+    for elm in dic_datos9:
+        for i in range(len(elm)):
+            clave, valor = elm[i].split(":")
+        dicc9[clave] = dicc9.get(clave, 0) + 1
 
+    return sorted(dicc9)
+
+print(pregunta_09())
 
 def pregunta_10():
     """
@@ -323,3 +329,21 @@ def pregunta_12():
     """
     return
 
+"""
+rta1 = [
+        (0, ["C"]),
+        (1, ["B", "E"]),
+        (2, ["A", "E"]),
+        (3, ["A", "B", "D", "E"]),
+        (4, ["B", "E"]),
+        (5, ["B", "C", "D", "E"]),
+        (6, ["A", "B", "C", "E"]),
+        (7, ["A", "C", "D", "E"]),
+        (8, ["A", "B", "D", "E"]),
+        (9, ["A", "B", "C", "E"]),
+    ]
+rta2 = [(0, ['C']), (1, ['B', 'E']), (2, ['A', 'E']), (3, ['A', 'B', 'D', 'E']), (4, ['B', 'E']), (5, ['B', 'C', 'D', 'E']), (6, ['A', 'B', 'C', 'E']), (7, ['A', 'C', 'D', 'E']), (8, ['A', 'B', 'D', 'E']), (9, ['A', 'B', 'C', 'E'])]
+if rta1 == rta2:
+    print("si")
+
+"""
