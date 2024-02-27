@@ -158,34 +158,27 @@ def pregunta_06():
     ]
 
     """
-# Inicializa un diccionario para almacenar los valores mínimo y máximo de cada clave
+
     valores = {}
 
     for fila in datos:
-        columna_5 = fila[4]  # Ahora accedemos directamente al quinto elemento de cada fila
-        pares = columna_5.split(',')  # Separa los pares clave:valor
+        columna_5 = fila[4]  
+        pares = columna_5.split(',')  
     
         for par in pares:
-            clave, valor_str = par.split(':')  # Separa la clave del valor
-            valor = int(valor_str)  # Convierte el valor a entero
-        
-            # Si la clave ya está en el diccionario, actualiza los valores mínimo y máximo
+            clave, valor_str = par.split(':') 
+            valor = int(valor_str)  
             if clave in valores:
                 valores[clave] = (
                     min(valores[clave][0], valor),  # Minimo
                     max(valores[clave][1], valor)   # Maximo
                     )
             else:
-                # Si la clave no está, inicializa con el valor actual como mínimo y máximo
                 valores[clave] = (valor, valor)
 
-    # Convertir el diccionario a la lista deseada de tuplas (clave, mínimo, máximo)
     resultado = [(clave, min_max[0], min_max[1]) for clave, min_max in valores.items()]
-
-    # Ordenar el resultado por clave si es necesario
     resultado.sort()
 
-    # Imprimir el resultado
 
     '''
     dic_datos1 = [z[4].split(",") for z in datos]
@@ -384,21 +377,3 @@ def pregunta_12():
             dic12[clave] = dic12[clave] + suma
     
     return dict(sorted(dic12.items()))
-
-
-rta1 = [
-        ("aaa", 1, 9),
-        ("bbb", 1, 9),
-        ("ccc", 1, 10),
-        ("ddd", 0, 9),
-        ("eee", 1, 7),
-        ("fff", 0, 9),
-        ("ggg", 3, 10),
-        ("hhh", 0, 9),
-        ("iii", 0, 9),
-        ("jjj", 5, 17),
-    ]
-rta2 = [('aaa', 1, 9), ('bbb', 1, 9), ('ccc', 1, 10), ('ddd', 0, 9), ('eee', 1, 7), ('fff', 0, 9), ('ggg', 3, 10), ('hhh', 0, 9), ('iii', 0, 9), ('jjj', 5, 17)]
-if rta1 == rta2:
-    print("si")
-
