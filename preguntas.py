@@ -158,6 +158,36 @@ def pregunta_06():
     ]
 
     """
+# Inicializa un diccionario para almacenar los valores mínimo y máximo de cada clave
+    valores = {}
+
+    for fila in datos:
+        columna_5 = fila[4]  # Ahora accedemos directamente al quinto elemento de cada fila
+        pares = columna_5.split(',')  # Separa los pares clave:valor
+    
+        for par in pares:
+            clave, valor_str = par.split(':')  # Separa la clave del valor
+            valor = int(valor_str)  # Convierte el valor a entero
+        
+            # Si la clave ya está en el diccionario, actualiza los valores mínimo y máximo
+            if clave in valores:
+                valores[clave] = (
+                    min(valores[clave][0], valor),  # Minimo
+                    max(valores[clave][1], valor)   # Maximo
+                    )
+            else:
+                # Si la clave no está, inicializa con el valor actual como mínimo y máximo
+                valores[clave] = (valor, valor)
+
+    # Convertir el diccionario a la lista deseada de tuplas (clave, mínimo, máximo)
+    resultado = [(clave, min_max[0], min_max[1]) for clave, min_max in valores.items()]
+
+    # Ordenar el resultado por clave si es necesario
+    resultado.sort()
+
+    # Imprimir el resultado
+
+    '''
     dic_datos1 = [z[4].split(",") for z in datos]
     dd2 = {}
     for elm in dic_datos1:
@@ -173,7 +203,9 @@ def pregunta_06():
     salida1 = sorted(dd2.values())
     lista_de_tuplas1 = [tuple(sublista) for sublista in salida1]
     #revisar donde esta el error 
-    return lista_de_tuplas1
+    '''
+    return resultado
+print(pregunta_06())
 
 def pregunta_07():
     """
@@ -264,11 +296,10 @@ def pregunta_09():
     for elm in dic_datos9:
         for i in range(len(elm)):
             clave, valor = elm[i].split(":")
-        dicc9[clave] = dicc9.get(clave, 0) + 1
+            dicc9[clave] = dicc9.get(clave, 0) + 1
 
-    return sorted(dicc9)
+    return dict(sorted(dicc9.items()))
 
-print(pregunta_09())
 
 def pregunta_10():
     """
@@ -288,7 +319,12 @@ def pregunta_10():
 
 
     """
-    return
+    dic10 = [z[4].split(",") for z in datos]
+    lis10 = []
+    for i in range(len(datos)):
+        lis10.append((datos[i][0], sum(1 for x in datos[i][3] if x.isalpha()), len(dic10[i])))
+
+    return lis10
 
 
 def pregunta_11():
@@ -309,8 +345,15 @@ def pregunta_11():
 
 
     """
-    return
+    list11 = [z[3].split(",") for z in datos]
+    dic11 = {}
+    for i in range(len(datos)):
+        valor = int(datos[i][1])
+        for j in range(len(list11[i])):
+            dic11[list11[i][j]] = dic11.get(list11[i][j], 0) + valor
 
+    lisO = sorted(dic11.items())
+    return dict(lisO)
 
 def pregunta_12():
     """
@@ -327,23 +370,35 @@ def pregunta_12():
     }
 
     """
-    return
+    lis11 = [z[4].split(",") for z in datos]
+    dic12 = {}
+    for i in range(len(datos)):
+        clave = datos[i][0]
+        suma = 0
+        for j in range(len(lis11[i])):
+            cl, valor = lis11[i][j].split(":")
+            suma += int(valor)
+        if clave not in dic12:
+            dic12[clave] = suma
+        else:
+            dic12[clave] = dic12[clave] + suma
+    
+    return dict(sorted(dic12.items()))
 
-"""
+
 rta1 = [
-        (0, ["C"]),
-        (1, ["B", "E"]),
-        (2, ["A", "E"]),
-        (3, ["A", "B", "D", "E"]),
-        (4, ["B", "E"]),
-        (5, ["B", "C", "D", "E"]),
-        (6, ["A", "B", "C", "E"]),
-        (7, ["A", "C", "D", "E"]),
-        (8, ["A", "B", "D", "E"]),
-        (9, ["A", "B", "C", "E"]),
+        ("aaa", 1, 9),
+        ("bbb", 1, 9),
+        ("ccc", 1, 10),
+        ("ddd", 0, 9),
+        ("eee", 1, 7),
+        ("fff", 0, 9),
+        ("ggg", 3, 10),
+        ("hhh", 0, 9),
+        ("iii", 0, 9),
+        ("jjj", 5, 17),
     ]
-rta2 = [(0, ['C']), (1, ['B', 'E']), (2, ['A', 'E']), (3, ['A', 'B', 'D', 'E']), (4, ['B', 'E']), (5, ['B', 'C', 'D', 'E']), (6, ['A', 'B', 'C', 'E']), (7, ['A', 'C', 'D', 'E']), (8, ['A', 'B', 'D', 'E']), (9, ['A', 'B', 'C', 'E'])]
+rta2 = [('aaa', 1, 9), ('bbb', 1, 9), ('ccc', 1, 10), ('ddd', 0, 9), ('eee', 1, 7), ('fff', 0, 9), ('ggg', 3, 10), ('hhh', 0, 9), ('iii', 0, 9), ('jjj', 5, 17)]
 if rta1 == rta2:
     print("si")
 
-"""
